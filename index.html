@@ -3,335 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Juba - Kampala Hiace | Staff Login</title>
+<title>MARTIN KIOSK - Charging & Airtime Transfer - Nyakuron Custom</title>
 <style>
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-body{margin:0;background:#f1f5f9;color:#0f172a}
-header{background:#111827;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-header h1{margin:0;font-size:19px} header p{margin:3px 0 0;opacity:.8;font-size:12px}
-.container{max-width:1200px;margin:auto;padding:14px}
-.status{padding:7px 13px;border-radius:999px;font-weight:700;font-size:12px}
-.online{background:#dcfce7;color:#166534}.offline{background:#fee2e2;color:#991b1b}
-.user-badge{background:#f59e0b;color:#000;padding:6px 12px;border-radius:999px;font-weight:700;font-size:12px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
-.card{background:#fff;padding:14px;border-radius:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.card h3{margin:0;font-size:13px;color:#64748b}.card b{font-size:24px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.tabs button{border:0;padding:10px 16px;border-radius:999px;background:#e2e8f0;font-weight:700;cursor:pointer}
-.tabs button.active{background:#111827;color:#fff}
-.tabs button:disabled{opacity:.4;cursor:not-allowed}
-.panel{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;display:none;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.panel.active{display:block}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-@media(max-width:700px){.grid2{grid-template-columns:1fr}}
-label{display:block;font-size:13px;font-weight:700;margin:9px 0 4px}
-input,select{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px}
-.btn{border:0;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin-top:12px;color:#fff}
-.blue{background:#2563eb}.green{background:#16a34a}.orange{background:#ea580c}.dark{background:#111827}.red{background:#dc2626}
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
-th,td{padding:9px;border-bottom:1px solid #e2e8f0;text-align:left} th{background:#f8fafc}
-.seats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
-.seat{padding:13px;text-align:center;border-radius:10px;border:2px solid #e2e8f0;background:#f8fafc;font-weight:800;cursor:pointer}
-.seat.selected{background:#2563eb;color:#fff}.seat.booked{background:#fecaca;cursor:not-allowed}
-.ticket{border:2px dashed #111827;padding:14px;border-radius:12px;background:#fffbeb;margin-top:12px}
-.small{font-size:12px;color:#64748b}
-.login-wrap{max-width:420px;margin:60px auto;background:#fff;padding:24px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center}
-.login-wrap h1{font-size:26px;margin:0}.login-wrap p{color:#64748b;font-size:13px}
-.demo{background:#f8fafc;padding:12px;border-radius:10px;font-size:12px;text-align:left;margin-top:12px}
-.hidden{display:none!important}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#0f172a;color:#fff}
+header{background:#f59e0b;color:#000;padding:12px;text-align:center}
+header h1{margin:0;font-size:20px}
+header p{margin:3px 0;font-size:12px;font-weight:bold}
+.tabs{display:flex;gap:6px;padding:10px;overflow-x:auto;background:#0f172a;position:sticky;top:0;z-index:10}
+.tabs button{flex:1;min-width:80px;padding:10px;border:0;border-radius:10px;background:#334155;color:#fff;font-weight:bold;cursor:pointer}
+.tabs button.active{background:#f59e0b;color:#000}
+.card{background:#1e293b;margin:10px;padding:14px;border-radius:14px}
+input,select{width:100%;padding:11px;margin:6px 0;border-radius:8px;border:0;background:#0f172a;color:#fff}
+button.primary{width:100%;padding:12px;background:#f59e0b;border:0;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:8px;color:#000}
+button.danger{background:#ef4444;color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#0f172a;padding:12px;border-radius:12px;text-align:center}
+.stat b{font-size:19px;color:#f59e0b;display:block}
+.list-item{background:#0f172a;padding:10px;border-radius:10px;margin:6px 0;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.list-item img{width:48px;height:48px;object-fit:cover;border-radius:8px}
+.small{font-size:12px;color:#94a3b8}
+.hidden{display:none}
+.badge{background:#22c55e;padding:3px 8px;border-radius:20px;font-size:11px;color:#000;font-weight:bold}
+.badge-red{background:#ef4444;color:#fff}
+.flex{display:flex;gap:8px}.flex button{flex:1}
+/* RECEIPT / CARD - PRINT */
+.receipt{background:#fff;color:#000;padding:16px;border-radius:12px;margin:10px}
+.receipt h2{margin:0;text-align:center;font-size:18px}
+.receipt p{margin:4px 0;font-size:13px}
+.warning{border:2px solid red;padding:8px;text-align:center;font-weight:bold;color:red;margin:10px 0;font-size:13px}
+@media print{body{background:#fff;color:#000} header,.tabs,.no-print{display:none!important} .receipt{display:block!important}}
 </style>
 </head>
 <body>
+<header>
+<h1>MARTIN KIOSK</h1>
+<p>For Charging & Airtime Transfer</p>
+<p>Custom - Nyakuron | Near Nyakuron Cultural Center | Next to John Lomuro Studio - Juba, South Sudan</p>
+<p id="contactHeader">Tel: 0920 000 000 | 0910 000 000</p>
+<p id="onlineStatus">● Online / Offline Ready - Secure Database</p>
+</header>
 
-<!-- ===== LOGIN SCREEN ===== -->
-<div id="loginScreen">
-<div class="login-wrap">
-<div style="font-size:48px">🚐</div>
-<h1>JUBA ⇄ KAMPALA</h1>
-<p>Hiace System - Staff Login Only</p>
-<label style="text-align:left">Staff Email</label>
-<input id="loginEmail" placeholder="e.g. juba@jubakampala.com">
-<label style="text-align:left">Password</label>
-<input id="loginPass" type="password" placeholder="Your password">
-<button class="btn blue" onclick="doLogin()">Login →</button>
-<div id="loginError" style="color:#dc2626;font-size:13px;margin-top:8px"></div>
-<div class="demo">
-<b>Demo Accounts (create these in Firebase Auth):</b><br>
-• Admin: admin@jubakampala.com - sees everything<br>
-• Juba Staff: juba@jubakampala.com - Juba → Kampala only<br>
-• Kampala Staff: kampala@jubakampala.com - Kampala → Juba only<br>
-• Driver: driver@jubakampala.com - Manifest only
-</div>
-</div>
+<div id="loginScreen" class="card">
+<h3>Login - MARTIN KIOSK System</h3>
+<select id="loginRole"><option value="admin">Admin - Martin (Owner)</option><option value="cashier">Cashier - Worker</option></select>
+<input id="loginPin" type="password" placeholder="PIN - Admin 1234 / Cashier 1111">
+<button class="primary" onclick="login()">LOGIN</button>
 </div>
 
-<!-- ===== MAIN APP - HIDDEN UNTIL LOGIN ===== -->
-<div id="mainApp" class="hidden">
-<header><div><h1>🚐 JUBA ⇄ KAMPALA HIACE</h1><p>Passengers + Cargo | Live Firebase</p></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span id="userBadge" class="user-badge"></span><span id="connStatus" class="status offline">Connecting...</span><button onclick="doLogout()" style="background:#dc2626;color:#fff;border:0;padding:7px 14px;border-radius:999px;cursor:pointer;font-weight:700">Logout</button></div></header>
-
-<div class="container">
-<div class="cards">
-<div class="card"><h3>Hiace Trips</h3><b id="sTrips">0</b></div>
-<div class="card"><h3>Passengers</h3><b id="sPass">0</b></div>
-<div class="card"><h3>Cargo Items</h3><b id="sCargo">0</b></div>
-<div class="card"><h3>Passenger Income</h3><b id="sIncP">0</b></div>
-<div class="card"><h3>Cargo Income</h3><b id="sIncC">0</b></div>
-<div class="card"><h3>Total Income</h3><b id="sTotal">0 SSP</b></div>
+<div id="app" class="hidden">
+<div class="tabs no-print">
+<button class="active" onclick="showTab('dashboard',this)">Dashboard</button>
+<button onclick="showTab('charging',this)">Charging</button>
+<button onclick="showTab('airtime',this)">Airtime</button>
+<button onclick="showTab('electricity',this)">Electricity</button>
+<button onclick="showTab('stock',this)">Stock</button>
+<button onclick="showTab('expenses',this)">Expenses</button>
+<button onclick="showTab('debt',this)">Debt</button>
+<button onclick="showTab('settings',this)">Settings</button>
 </div>
 
-<div class="tabs">
-<button id="tabBook" class="active" onclick="showTab('book',this)">🎫 Book Passenger</button>
-<button id="tabCargo" onclick="showTab('cargo',this)">📦 Ship Cargo</button>
-<button id="tabTrips" onclick="showTab('trips',this)">🚐 Hiace Trips</button>
-<button id="tabList" onclick="showTab('list',this)">📋 Manifest</button>
+<div id="tab-dashboard">
+<div class="card"><h3>Today - <span id="todayDate"></span></h3>
+<div class="grid">
+<div class="stat"><span>Charging</span><b id="statCharging">0 SSP</b></div>
+<div class="stat"><span>Airtime All Networks</span><b id="statAirtime">0 SSP</b></div>
+<div class="stat"><span>Electricity JEDCO</span><b id="statElec">0 SSP</b></div>
+<div class="stat"><span>Stock Sales</span><b id="statStock">0 SSP</b></div>
+<div class="stat"><span>Expenses</span><b id="statExpenses">0 SSP</b></div>
+<div class="stat"><span>NET PROFIT</span><b id="statProfit">0 SSP</b></div>
+</div>
+<button class="primary no-print" onclick="exportBackup()">DOWNLOAD BACKUP</button>
+<button class="primary no-print" onclick="window.print()">PRINT DAILY REPORT</button>
+</div>
+<div class="card"><h3>Phones Charging Now</h3><div id="activeCharging"></div></div>
 </div>
 
-<div id="book" class="panel active">
-<h2>Book Passenger in Hiace</h2>
-<div class="grid2">
-<div>
-<label>Select Hiace / Trip</label><select id="tripSel" onchange="renderSeats()"></select>
-<div id="tripInfo" class="small"></div>
-<label>Passenger Full Name *</label><input id="pName" placeholder="Full Name">
-<label>Passenger Phone *</label><input id="pPhone" placeholder="0920...">
-<div class="grid2"><div><label>Passport / ID</label><input id="pID"></div><div><label>Payment Method</label><select id="pPay"><option>Cash</option><option>MTN MoMo</option><option>Airtel Money</option></select></div></div>
-<label>Drop-off Point</label><select id="pDrop"><option>Kampala - Final</option><option>Nimule</option><option>Gulu</option></select>
-<button class="btn green" onclick="bookPassenger()">Confirm Passenger Booking ✅</button>
-<div id="ticketP"></div>
+<div id="tab-charging" class="hidden">
+<div class="card no-print"><h3>New Charging - Default 1500 SSP</h3>
+<input id="chName" placeholder="Customer Name / Mark">
+<input id="chPhone" placeholder="Customer Phone">
+<input id="chModel" placeholder="Phone Model / Color">
+<input id="chCode" placeholder="Lock Code">
+<input id="chPrice" type="number" value="1500">
+<label class="small">Customer Photo Proof</label>
+<input type="file" accept="image/*" capture="user" onchange="previewPhoto(this)">
+<img id="chPhotoPreview" class="hidden" style="width:100%;border-radius:10px">
+<button class="primary" onclick="addCharging()">START CHARGING + PRINT CARD</button>
 </div>
-<div>
-<div style="font-size:28px;text-align:center">🚐 Hiace - 14 Seats</div>
-<div class="seats" id="seatsBox"></div>
-<div id="selSeat" style="font-weight:800;margin-top:8px">No seat selected</div>
+<div id="chargingReceipt"></div>
+<div class="card"><h3>Charging History</h3><div id="chargingList"></div></div>
+</div>
+
+<div id="tab-airtime" class="hidden">
+<div class="card no-print"><h3>Airtime / Mobile Money - All Juba Networks</h3>
+<select id="atNetwork">
+<option>MTN Airtime</option><option>MTN MoMo</option>
+<option>Zain Airtime</option><option>mGurush - Zain Money</option>
+<option>Digitel Airtime</option><option>DigiCash - Digitel Money</option>
+</select>
+<input id="atNumber" placeholder="Receiver Number">
+<input id="atAmount" type="number" placeholder="Amount SSP">
+<input id="atProfit" type="number" placeholder="Profit SSP - Owner Sets">
+<button class="primary" onclick="addAirtime()">CONFIRM + PRINT RECEIPT</button>
+</div>
+<div id="airtimeReceipt"></div>
+<div class="card"><h3>Airtime History</h3><div id="airtimeList"></div></div>
+</div>
+
+<div id="tab-electricity" class="hidden">
+<div class="card no-print"><h3>JEDCO Electricity Token</h3>
+<input id="elMeter" placeholder="Meter Number">
+<input id="elName" placeholder="Customer Name">
+<input id="elAmount" type="number" placeholder="Amount SSP">
+<input id="elToken" placeholder="Token Number - 20 Digits">
+<input id="elProfit" type="number" placeholder="Profit SSP">
+<button class="primary" onclick="addElectricity()">SELL ELECTRICITY + PRINT RECEIPT</button>
+</div>
+<div id="elecReceipt"></div>
+<div class="card"><h3>Electricity History</h3><div id="elecList"></div></div>
+</div>
+
+<div id="tab-stock" class="hidden">
+<div class="card no-print"><h3>Add Product Manually</h3>
+<input id="pName" placeholder="Product - e.g. Rothmans">
+<input id="pBuy" type="number" placeholder="Buy Price">
+<input id="pSell" type="number" placeholder="Sell Price">
+<input id="pQty" type="number" placeholder="Qty">
+<button class="primary" onclick="addProduct()">ADD PRODUCT</button></div>
+<div class="card"><h3>Products</h3><div id="productList"></div></div>
+</div>
+
+<div id="tab-expenses" class="hidden">
+<div class="card no-print"><h3>Add Expense</h3>
+<input id="eName" placeholder="Expense Name">
+<input id="eAmount" type="number" placeholder="Amount SSP">
+<button class="primary" onclick="addExpense()">ADD EXPENSE</button></div>
+<div class="card"><h3>Expenses</h3><div id="expenseList"></div></div>
+</div>
+
+<div id="tab-debt" class="hidden">
+<div class="card no-print"><h3>Debt</h3>
+<input id="dName" placeholder="Customer Name">
+<input id="dItem" placeholder="Item">
+<input id="dAmount" type="number" placeholder="Amount">
+<input type="date" id="dDate">
+<button class="primary" onclick="addDebt()">ADD DEBT</button></div>
+<div class="card"><h3>Debts</h3><div id="debtList"></div></div>
+</div>
+
+<div id="tab-settings" class="hidden">
+<div class="card"><h3>Settings - Martin Only</h3>
+<label class="small">Shop Name</label><input id="sShop" value="MARTIN KIOSK - For Charging & Airtime Transfer">
+<label class="small">Phone 1</label><input id="sPhone1" value="0920 000 000">
+<label class="small">Phone 2</label><input id="sPhone2" value="0910 000 000">
+<label class="small">Charging Price</label><input id="sChargingPrice" type="number" value="1500">
+<label class="small">Lost Card Fine SSP</label><input id="sFine" type="number" value="10000">
+<label class="small">Admin PIN</label><input id="sAdminPin" value="1234">
+<label class="small">Cashier PIN</label><input id="sCashierPin" value="1111">
+<button class="primary" onclick="saveSettings()">SAVE SETTINGS</button>
 </div>
 </div>
 </div>
 
-<div id="cargo" class="panel">
-<h2>Ship Cargo</h2>
-<div class="grid2">
-<div><label>Select Hiace</label><select id="cargoTrip"></select></div>
-<div><label>Cargo Type</label><select id="cType"><option>Box / Carton</option><option>Sack</option><option>Bag</option><option>TV / Screen</option><option>Food Items</option><option>Medicine</option><option>Other</option></select></div>
-<div><label>Cargo Description</label><input id="cDesc" placeholder="Example: Box of clothes"></div>
-<div><label>Weight (KG) *</label><input type="number" id="cWeight" value="10" oninput="calcCargo()"></div>
-<div><label>Price per KG (SSP)</label><input type="number" id="cPriceKg" value="5000" oninput="calcCargo()"></div>
-<div><label>Total Cargo Price</label><input id="cTotal" readonly style="background:#fef3c7;font-weight:800"></div>
-<div><label>Sender Name</label><input id="cSender"></div>
-<div><label>Sender Phone</label><input id="cSenderPhone"></div>
-<div><label>Receiver Name *</label><input id="cReceiver"></div>
-<div><label>Receiver Phone *</label><input id="cReceiverPhone"></div>
-</div>
-<button class="btn orange" onclick="addCargo()">Issue Cargo Waybill 📦</button>
-<div id="ticketC"></div>
-<div id="cargoTable"></div>
-</div>
+<script>
+let DB=JSON.parse(localStorage.getItem('martin_db')||'{"charging":[],"airtime":[],"electricity":[],"products":[],"expenses":[],"debts":[],"sales":[],"settings":{"chargingPrice":1500,"adminPin":"1234","cashierPin":"1111","shop":"MARTIN KIOSK","phone1":"0920 000 000","phone2":"0910 000 000","fine":10000}}');
+function save(){localStorage.setItem('martin_db',JSON.stringify(DB)); render();}
+function today(){return new Date().toISOString().slice(0,10)}
+document.getElementById('todayDate').innerText=new Date().toDateString();
+let currentPhoto="";
+function previewPhoto(el){let r=new FileReader(); r.onload=e=>{currentPhoto=e.target.result; document.getElementById('chPhotoPreview').src=currentPhoto; document.getElementById('chPhotoPreview').classList.remove('hidden')}; r.readAsDataURL(el.files[0]);}
+function login(){let role=document.getElementById('loginRole').value; let pin=document.getElementById('loginPin').value; let ok=role==='admin'?pin===DB.settings.adminPin:pin===DB.settings.cashierPin; if(!ok) return alert('Wrong PIN'); document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('app').classList.remove('hidden'); render();}
+function showTab(id,btn){document.querySelectorAll('[id^="tab-"]').forEach(d=>d.classList.add('hidden')); document.getElementById('tab-'+id).classList.remove('hidden'); document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); btn.classList.add('active');}
+function receiptHTML(title,rows){return `<div class="receipt"><h2>${DB.settings.shop}</h2><p style="text-align:center">Custom - Nyakuron | Near Cultural Center | Next to John Lomuro Studio</p><p style="text-align:center">Tel: ${DB.settings.phone1} | ${DB.settings.phone2}</p><hr>${rows}<p>Date: ${new Date().toLocaleString()}</p><div class="warning">WARNING: IF THIS CARD / RECEIPT IS LOST, FINE IS ${DB.settings.fine} SSP - 10000 South Sudanese Pounds</div><p style="text-align:center">Thank You - Come Again - Martin Kiosk</p><button class="primary no-print" onclick="window.print()">PRINT THIS RECEIPT</button></div>`}
 
-<div id="trips" class="panel">
-<h2>Add New Hiace Trip</h2>
-<div id="adminOnlyMsg" class="small" style="color:#dc2626;font-weight:700"></div>
-<div class="grid2">
-<div><label>From</label><select id="from"><option>Juba</option><option>Kampala</option></select></div>
-<div><label>To</label><select id="to"><option>Kampala</option><option>Juba</option></select></div>
-<div><label>Date</label><input type="date" id="tDate"></div>
-<div><label>Departure Time</label><input type="time" id="tTime" value="06:00"></div>
-<div><label>Hiace Number / Plate</label><input id="tPlate" placeholder="Hiace 07 - SSD 777"></div>
-<div><label>Driver Name</label><input id="tDriver"></div>
-<div><label>Driver Phone</label><input id="tDriverPhone"></div>
-<div><label>Passenger Ticket Price (SSP)</label><input type="number" id="tPrice" value="120000"></div>
-</div>
-<button class="btn blue" id="addTripBtn" onclick="addTrip()">Add Hiace Trip 🚐</button>
-<div id="tripsTable"></div>
-</div>
-
-<div id="list" class="panel">
-<h2>Trip Manifest - Driver Sheet for Border</h2>
-<label>Select Hiace</label><select id="manifestTrip" onchange="renderManifest()"></select>
-<div id="manifestBox"></div>
-<button class="btn dark" onclick="window.print()">Print Manifest 🖨️</button>
-<h3>All Passengers</h3><div id="passTable"></div>
-<h3>All Cargo</h3><div id="cargoAll"></div>
-</div>
-</div>
-</div>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-// ======== PASTE YOUR FIREBASE CONFIG HERE ========
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-// ==================================================
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-let trips=[], pass=[], cargos=[], selSeat=null;
-let currentUser=null, currentRole='admin';
-
-const tripsCol = collection(db, "trips");
-const passCol = collection(db, "passengers");
-const cargoCol = collection(db, "cargo");
-
-// --- ROLE LOGIC FROM EMAIL ---
-function getRoleFromEmail(email){
-  email = email.toLowerCase();
-  if(email.startsWith('admin')) return {role:'admin', label:'ADMIN', branch:'ALL'};
-  if(email.startsWith('juba')) return {role:'juba', label:'JUBA STAFF', branch:'Juba'};
-  if(email.startsWith('kampala')) return {role:'kampala', label:'KAMPALA STAFF', branch:'Kampala'};
-  if(email.startsWith('driver')) return {role:'driver', label:'DRIVER', branch:'ALL'};
-  return {role:'staff', label:'STAFF', branch:'ALL'};
+function addCharging(){
+let price=Number(document.getElementById('chPrice').value||DB.settings.chargingPrice);
+let name=document.getElementById('chName').value||'Unknown';
+let item={id:Date.now(),name,phone:document.getElementById('chPhone').value,model:document.getElementById('chModel').value,code:document.getElementById('chCode').value,price,photo:currentPhoto,status:'charging',date:today()};
+DB.charging.push(item); save();
+document.getElementById('chargingReceipt').innerHTML=receiptHTML('CHARGING CARD',`<p><b>Customer:</b> ${name}</p><p><b>Phone:</b> ${item.phone}</p><p><b>Model:</b> ${item.model}</p><p><b>Price:</b> ${price} SSP</p><p><b>Card No:</b> #${item.id}</p>${item.photo?`<img src="${item.photo}" style="width:100px;height:100px;object-fit:cover">`:''}<p><b>Keep This Card To Collect Your Phone</b></p>`);
+currentPhoto=""; alert('Charging Started + Card Ready');
 }
-
-function applyPermissions(){
-  const r = currentRole;
-  document.getElementById('userBadge').innerText = `${currentUser.email} • ${getRoleFromEmail(currentUser.email).label}`;
-  // Driver: only manifest
-  if(r==='driver'){
-    document.getElementById('tabBook').disabled=true;
-    document.getElementById('tabCargo').disabled=true;
-    document.getElementById('tabTrips').disabled=true;
-    showTab('list', document.getElementById('tabList'));
-  }
-  // Staff: cannot add trips, only Admin can
-  if(r!=='admin'){
-    document.getElementById('addTripBtn').disabled=true;
-    document.getElementById('addTripBtn').innerText='Only Admin Can Add Trips';
-    document.getElementById('adminOnlyMsg').innerText='You are logged in as staff. You can book passengers and cargo, but only Admin can create new Hiace trips.';
-  } else {
-    document.getElementById('addTripBtn').disabled=false;
-  }
-  // Filter trips by branch for staff
-  renderSelects();
+function finishCharging(id){let it=DB.charging.find(x=>x.id===id); if(it) it.status='done'; save();}
+function addAirtime(){
+let item={id:Date.now(),network:document.getElementById('atNetwork').value,number:document.getElementById('atNumber').value,amount:Number(document.getElementById('atAmount').value),profit:Number(document.getElementById('atProfit').value||0),date:today()};
+DB.airtime.push(item); save();
+document.getElementById('airtimeReceipt').innerHTML=receiptHTML('AIRTIME RECEIPT',`<p><b>Network:</b> ${item.network}</p><p><b>Number:</b> ${item.number}</p><p><b>Amount:</b> ${item.amount} SSP</p><p><b>Receipt No:</b> #${item.id}</p>`);
 }
-
-// --- AUTH ---
-window.doLogin = async ()=>{
-  const email=document.getElementById('loginEmail').value.trim();
-  const passw=document.getElementById('loginPass').value;
-  try{
-    await signInWithEmailAndPassword(auth, email, passw);
-  }catch(e){
-    document.getElementById('loginError').innerText='Login failed: '+e.message;
-  }
-};
-window.doLogout = async ()=>{ await signOut(auth); };
-
-onAuthStateChanged(auth, (user)=>{
-  if(user){
-    currentUser=user;
-    currentRole=getRoleFromEmail(user.email).role;
-    document.getElementById('loginScreen').classList.add('hidden');
-    document.getElementById('mainApp').classList.remove('hidden');
-    applyPermissions();
-    startListeners();
-  } else {
-    currentUser=null;
-    document.getElementById('loginScreen').classList.remove('hidden');
-    document.getElementById('mainApp').classList.add('hidden');
-  }
-});
-
-let listenersStarted=false;
-function startListeners(){
-  if(listenersStarted) return; listenersStarted=true;
-  onSnapshot(query(tripsCol, orderBy("createdAt","desc")), (snap)=>{
-    trips = snap.docs.map(d=>({id:d.id, ...d.data()}));
-    document.getElementById('connStatus').innerText='Connected ✅ Firebase Live';
-    document.getElementById('connStatus').className='status online';
-    renderAll();
-    if(trips.length===0 && currentRole==='admin') seedTrips();
-  });
-  onSnapshot(query(passCol, orderBy("createdAt","desc")), (snap)=>{ pass = snap.docs.map(d=>({id:d.id, ...d.data()})); renderAll(); });
-  onSnapshot(query(cargoCol, orderBy("createdAt","desc")), (snap)=>{ cargos = snap.docs.map(d=>({id:d.id, ...d.data()})); renderAll(); });
+function addElectricity(){
+let item={id:Date.now(),meter:document.getElementById('elMeter').value,name:document.getElementById('elName').value,amount:Number(document.getElementById('elAmount').value),token:document.getElementById('elToken').value,profit:Number(document.getElementById('elProfit').value||0),date:today()};
+DB.electricity.push(item); save();
+document.getElementById('elecReceipt').innerHTML=receiptHTML('JEDCO ELECTRICITY RECEIPT',`<p><b>Customer:</b> ${item.name}</p><p><b>Meter No:</b> ${item.meter}</p><p><b>Amount:</b> ${item.amount} SSP</p><p><b>TOKEN:</b> <b style="font-size:18px;letter-spacing:2px">${item.token}</b></p><p><b>Receipt No:</b> #${item.id}</p>`);
 }
-
-async function seedTrips(){
-  await addDoc(tripsCol, {from:'Juba',to:'Kampala',date:'2026-11-10',time:'06:00',plate:'Hiace 01 - SSD 111',driver:'Ahmed Deng',driverPhone:'0921111111',price:120000,createdAt:serverTimestamp()});
-  await addDoc(tripsCol, {from:'Kampala',to:'Juba',date:'2026-11-11',time:'07:00',plate:'Hiace 02 - SSD 222',driver:'John Maw',driverPhone:'0922222222',price:120000,createdAt:serverTimestamp()});
+function addProduct(){DB.products.push({id:Date.now(),name:document.getElementById('pName').value,buy:Number(document.getElementById('pBuy').value),sell:Number(document.getElementById('pSell').value),qty:Number(document.getElementById('pQty').value)}); save();}
+function sellProduct(id){let p=DB.products.find(x=>x.id===id); if(!p||p.qty<=0) return alert('Out of Stock'); p.qty--; DB.sales.push({id:Date.now(),name:p.name,amount:p.sell,date:today()}); save();}
+function addExpense(){DB.expenses.push({id:Date.now(),name:document.getElementById('eName').value,amount:Number(document.getElementById('eAmount').value),date:today()}); save();}
+function addDebt(){DB.debts.push({id:Date.now(),name:document.getElementById('dName').value,item:document.getElementById('dItem').value,amount:Number(document.getElementById('dAmount').value),returnDate:document.getElementById('dDate').value,paid:false,date:today()}); save();}
+function payDebt(id){let d=DB.debts.find(x=>x.id===id); if(d) d.paid=true; save();}
+function saveSettings(){DB.settings.chargingPrice=Number(document.getElementById('sChargingPrice').value); DB.settings.adminPin=document.getElementById('sAdminPin').value; DB.settings.cashierPin=document.getElementById('sCashierPin').value; DB.settings.phone1=document.getElementById('sPhone1').value; DB.settings.phone2=document.getElementById('sPhone2').value; DB.settings.fine=Number(document.getElementById('sFine').value); DB.settings.shop=document.getElementById('sShop').value; document.getElementById('contactHeader').innerText=`Tel: ${DB.settings.phone1} | ${DB.settings.phone2}`; document.getElementById('chPrice').value=DB.settings.chargingPrice; save(); alert('Saved');}
+function exportBackup(){let blob=new Blob([JSON.stringify(DB)],{type:'application/json'}); let a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='martin-kiosk-backup-'+today()+'.json'; a.click();}
+function render(){
+let t=today(); let sum=a=>a.reduce((s,x)=>s+(x.price||x.amount||0),0);
+let ch=DB.charging.filter(x=>x.date===t), at=DB.airtime.filter(x=>x.date===t), el=DB.electricity.filter(x=>x.date===t), sales=(DB.sales||[]).filter(x=>x.date===t), ex=DB.expenses.filter(x=>x.date===t);
+document.getElementById('statCharging').innerText=sum(ch)+' SSP';
+document.getElementById('statAirtime').innerText=sum(at)+' SSP';
+document.getElementById('statElec').innerText=sum(el)+' SSP';
+document.getElementById('statStock').innerText=sum(sales)+' SSP';
+document.getElementById('statExpenses').innerText=sum(ex)+' SSP';
+document.getElementById('statProfit').innerText=(sum(ch)+sum(at)+sum(el)+sum(sales)-sum(ex))+' SSP';
+document.getElementById('activeCharging').innerHTML=DB.charging.filter(x=>x.status==='charging').map(x=>`<div class="list-item"><div>${x.photo?`<img src="${x.photo}">`:''}<b>${x.name}</b><div class="small">${x.model} - ${x.price} SSP</div></div><button onclick="finishCharging(${x.id})">DONE</button></div>`).join('')||'No phones';
+document.getElementById('chargingList').innerHTML=DB.charging.slice(-20).reverse().map(x=>`<div class="list-item"><span>${x.name} - ${x.price} SSP - ${x.status}</span><span class="badge">${x.date}</span></div>`).join('');
+document.getElementById('airtimeList').innerHTML=DB.airtime.slice(-20).reverse().map(x=>`<div class="list-item"><span>${x.network} - ${x.number} - ${x.amount} SSP</span></div>`).join('');
+document.getElementById('elecList').innerHTML=DB.electricity.slice(-20).reverse().map(x=>`<div class="list-item"><span>${x.name} - Meter ${x.meter} - ${x.amount} SSP</span><b>Token: ${x.token}</b></div>`).join('');
+document.getElementById('productList').innerHTML=DB.products.map(p=>`<div class="list-item"><span><b>${p.name}</b> - ${p.sell} SSP | Qty ${p.qty}</span><button onclick="sellProduct(${p.id})">SELL</button></div>`).join('')||'No products';
+document.getElementById('expenseList').innerHTML=DB.expenses.slice(-20).reverse().map(x=>`<div class="list-item"><span>${x.name}</span><b>${x.amount} SSP</b></div>`).join('');
+document.getElementById('debtList').innerHTML=DB.debts.map(d=>`<div class="list-item"><span>${d.name} - ${d.item} - ${d.amount} SSP ${d.paid?'PAID':'UNPAID'}</span>${!d.paid?`<button onclick="payDebt(${d.id})">PAID</button>`:''}</div>`).join('')||'No debts';
+document.getElementById('contactHeader').innerText=`Tel: ${DB.settings.phone1} | ${DB.settings.phone2}`;
+document.getElementById('chPrice').value=DB.settings.chargingPrice;
 }
-
-window.showTab = (id,btn)=>{ if(btn.disabled) return; document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); renderAll(); }
-window.calcCargo = ()=>{ let w=Number(document.getElementById('cWeight').value||0); let p=Number(document.getElementById('cPriceKg').value||0); document.getElementById('cTotal').value=(w*p).toLocaleString()+' SSP'; }
-
-function renderAll(){ renderStats(); renderSelects(); renderSeats(); renderTripsTable(); renderCargoTable(); renderManifest(); renderPassTable(); }
-function renderStats(){
-  document.getElementById('sTrips').innerText=trips.length;
-  document.getElementById('sPass').innerText=pass.length;
-  document.getElementById('sCargo').innerText=cargos.length;
-  let ip=pass.reduce((s,b)=>s+Number(b.price||0),0);
-  let ic=cargos.reduce((s,b)=>s+Number(b.total||0),0);
-  document.getElementById('sIncP').innerText=ip.toLocaleString();
-  document.getElementById('sIncC').innerText=ic.toLocaleString();
-  document.getElementById('sTotal').innerText=(ip+ic).toLocaleString()+' SSP';
-}
-function getVisibleTrips(){
-  if(currentRole==='juba') return trips.filter(t=>t.from==='Juba');
-  if(currentRole==='kampala') return trips.filter(t=>t.from==='Kampala');
-  return trips;
-}
-function renderSelects(){
-  let visible = getVisibleTrips();
-  ['tripSel','cargoTrip','manifestTrip'].forEach(id=>{
-    let sel=document.getElementById(id); if(!sel) return; let cur=sel.value; sel.innerHTML='';
-    visible.forEach(t=>{let o=document.createElement('option');o.value=t.id;o.textContent=`${t.plate} | ${t.from} → ${t.to} | ${t.date} ${t.time}`;sel.appendChild(o);});
-    if(cur) sel.value=cur;
-  });
-}
-function renderSeats(){
-  let tid=document.getElementById('tripSel').value; let t=trips.find(x=>x.id===tid); if(!t) return;
-  document.getElementById('tripInfo').innerHTML=`<b>${t.plate}</b> | ${t.from} → ${t.to} | Driver: ${t.driver} | Price: ${t.price} SSP`;
-  let box=document.getElementById('seatsBox'); box.innerHTML='';
-  let booked=pass.filter(p=>p.tripId===tid).map(p=>p.seat);
-  for(let i=1;i<=14;i++){let d=document.createElement('div');d.className='seat';d.innerText='Seat '+i; if(booked.includes(i)){d.classList.add('booked');} else{d.onclick=()=>{selSeat=i;document.querySelectorAll('.seat').forEach(s=>s.classList.remove('selected'));d.classList.add('selected');document.getElementById('selSeat').innerText='Selected Seat: '+i+' | Price: '+t.price+' SSP';}} box.appendChild(d);}
-}
-window.bookPassenger = async ()=>{
-  let tid=document.getElementById('tripSel').value; let t=trips.find(x=>x.id===tid);
-  let name=document.getElementById('pName').value.trim(); let phone=document.getElementById('pPhone').value.trim();
-  if(!name||!phone||!selSeat){alert('Enter name, phone and select a seat');return;}
-  if(pass.some(p=>p.tripId===tid && p.seat===selSeat)){alert('This seat is already booked, choose another one');return;}
-  let code='P-'+Math.floor(1000+Math.random()*9000);
-  await addDoc(passCol, {code,tripId:tid,name,phone,idNo:document.getElementById('pID').value,pay:document.getElementById('pPay').value,drop:document.getElementById('pDrop').value,seat:selSeat,price:t.price,from:t.from,to:t.to,date:t.date,plate:t.plate,createdBy:currentUser.email,createdAt:serverTimestamp()});
-  document.getElementById('ticketP').innerHTML=`<div class="ticket"><h3>🎫 Hiace Ticket - ${code}</h3><p>Passenger: ${name}<br>Hiace: ${t.plate} | ${t.from} → ${t.to}<br>${t.date} ${t.time} | Seat: ${selSeat} | ${t.price} SSP</p><button class="btn dark" onclick="window.print()">Print</button></div>`;
-  alert('Booking confirmed - Code: '+code);
-}
-window.addCargo = async ()=>{
-  let tid=document.getElementById('cargoTrip').value; let t=trips.find(x=>x.id===tid);
-  let w=Number(document.getElementById('cWeight').value||0); let pKg=Number(document.getElementById('cPriceKg').value||0); let total=w*pKg;
-  let receiver=document.getElementById('cReceiver').value.trim(); let rPhone=document.getElementById('cReceiverPhone').value.trim();
-  if(!receiver||!rPhone||w<=0){alert('Enter receiver, phone and weight');return;}
-  let code='C-'+Math.floor(1000+Math.random()*9000);
-  await addDoc(cargoCol, {code,tripId:tid,type:document.getElementById('cType').value,desc:document.getElementById('cDesc').value,weight:w,priceKg:pKg,total,sender:document.getElementById('cSender').value,senderPhone:document.getElementById('cSenderPhone').value,receiver,receiverPhone:rPhone,from:t.from,to:t.to,date:t.date,plate:t.plate,createdBy:currentUser.email,createdAt:serverTimestamp()});
-  document.getElementById('ticketC').innerHTML=`<div class="ticket"><h3>📦 Cargo Waybill - ${code}</h3><p>${t.plate} | ${t.from} → ${t.to}<br>Cargo: ${document.getElementById('cType').value} - ${document.getElementById('cDesc').value} - ${w}kg<br>Receiver: ${receiver} (${rPhone})<br><b>Total: ${total.toLocaleString()} SSP</b></p></div>`;
-}
-window.addTrip = async ()=>{
-  if(currentRole!=='admin'){alert('Only Admin can add trips');return;}
-  let t={from:document.getElementById('from').value,to:document.getElementById('to').value,date:document.getElementById('tDate').value,time:document.getElementById('tTime').value,plate:document.getElementById('tPlate').value,driver:document.getElementById('tDriver').value,driverPhone:document.getElementById('tDriverPhone').value,price:Number(document.getElementById('tPrice').value),createdAt:serverTimestamp()};
-  if(!t.date||!t.plate){alert('Enter date and hiace number');return;}
-  await addDoc(tripsCol, t); alert('Hiace added - visible to all branches instantly');
-}
-function renderTripsTable(){let h=`<table><tr><th>Hiace</th><th>Route</th><th>Date</th><th>Driver</th><th>Passengers</th><th>Cargo</th></tr>`; getVisibleTrips().forEach(t=>{let pc=pass.filter(p=>p.tripId===t.id).length; let cc=cargos.filter(c=>c.tripId===t.id).length; h+=`<tr><td>${t.plate}</td><td>${t.from} → ${t.to}</td><td>${t.date} ${t.time}</td><td>${t.driver}</td><td>${pc}/14</td><td>${cc}</td></tr>`}); document.getElementById('tripsTable').innerHTML=h+'</table>';}
-function renderCargoTable(){let h=`<table><tr><th>Waybill</th><th>Cargo</th><th>Weight</th><th>Receiver</th><th>Total</th></tr>`; cargos.forEach(c=>{h+=`<tr><td>${c.code}</td><td>${c.type} - ${c.desc}</td><td>${c.weight}kg</td><td>${c.receiver} - ${c.receiverPhone}</td><td>${Number(c.total).toLocaleString()}</td></tr>`}); document.getElementById('cargoTable').innerHTML=h+'</table>'; document.getElementById('cargoAll').innerHTML=h+'</table>';}
-function renderPassTable(){let h=`<table><tr><th>Ticket</th><th>Passenger</th><th>Hiace</th><th>Seat</th><th>Phone</th><th>Booked By</th></tr>`; pass.forEach(p=>{h+=`<tr><td>${p.code}</td><td>${p.name}</td><td>${p.plate} - ${p.date}</td><td>${p.seat}</td><td>${p.phone}</td><td>${p.createdBy||'-'}</td></tr>`}); document.getElementById('passTable').innerHTML=h+'</table>';}
-function renderManifest(){
-  let tid=document.getElementById('manifestTrip').value; let t=trips.find(x=>x.id===tid); if(!t) return;
-  let ps=pass.filter(p=>p.tripId===tid); let cs=cargos.filter(c=>c.tripId===tid);
-  let totalP=ps.reduce((s,p)=>s+Number(p.price||0),0); let totalC=cs.reduce((s,c)=>s+Number(c.total||0),0);
-  let h=`<div class="ticket"><h3>📋 Manifest - ${t.plate}</h3><p>${t.from} → ${t.to} | ${t.date} ${t.time}<br>Driver: ${t.driver} | ${t.driverPhone}<br><b>Passengers (${ps.length}/14):</b></p><ol>`;
-  ps.forEach(p=>{h+=`<li>${p.name} - Seat ${p.seat} - ${p.phone} - Drop: ${p.drop}</li>`});
-  h+=`</ol><p><b>Cargo (${cs.length}):</b></p><ol>`; cs.forEach(c=>{h+=`<li>${c.type} - ${c.desc} - ${c.weight}kg - Receiver: ${c.receiver} ${c.receiverPhone} - ${Number(c.total).toLocaleString()} SSP</li>`});
-  h+=`</ol><p><b>Passenger Total:</b> ${totalP.toLocaleString()} | <b>Cargo Total:</b> ${totalC.toLocaleString()} | <b>Grand Total:</b> ${(totalP+totalC).toLocaleString()} SSP</p><p>Driver Signature: __________ | Manager Signature: __________</p></div>`;
-  document.getElementById('manifestBox').innerHTML=h;
-}
-calcCargo();
+render();
+window.addEventListener('online',()=>document.getElementById('onlineStatus').innerText='● Online');
+window.addEventListener('offline',()=>document.getElementById('onlineStatus').innerText='● Offline Mode - Saved Locally');
 </script>
 </body>
 </html>
