@@ -1,135 +1,126 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PharmaTech Active Care</title>
+<link rel="icon" href="logo.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0E63FF">
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui;background:#f1f5f9;color:#0f172a}
-.top{background:#0f172a;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
-.logo{display:flex;gap:10px;align-items:center}.logo-mark{width:42px;height:42px;background:#2563eb;border-radius:10px;display:grid;place-items:center;font-size:22px}
-.sidebar{width:230px;background:#fff;border-right:1px solid #e2e8f0;padding:12px;position:fixed;top:52px;left:0;bottom:0;overflow:auto}
+:root{
+  --blue:#0E63FF; --green:#00C48C; --navy:#0B1B33;
+  --red:#DC2626; --amber:#D97706; --bg:#F1F5F9;
+}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui;background:var(--bg);color:#0F172A}
+.top{background:var(--navy);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:10px;align-items:center}.logo img{width:42px;height:42px;border-radius:10px}
+.sidebar{width:230px;background:#fff;border-right:1px solid #E2E8F0;padding:12px;position:fixed;top:52px;left:0;bottom:0;overflow:auto}
 .sidebar button{width:100%;text-align:left;background:transparent;color:#334155;border:none;padding:11px;border-radius:8px;cursor:pointer;font-weight:600;margin:2px 0}
-.sidebar button.active,.sidebar button:hover{background:#dbeafe;color:#1e40af}
+.sidebar button.active,.sidebar button:hover{background:#DBEAFE;color:var(--blue)}
 .main{margin-left:230px;padding:16px}
 .card{background:#fff;border-radius:12px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:12px}
 .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.grid4 .card{text-align:center}.grid4 b{font-size:22px;display:block}
-input,select{padding:10px;border:1px solid #cbd5e1;border-radius:8px;width:100%;margin:4px 0;background:#fff}
-.btn{padding:10px 14px;border:none;border-radius:8px;cursor:pointer;font-weight:700;color:#fff;background:#1e40af;width:auto}.btn.g{background:#15803d}.btn.r{background:#dc2626}.btn.y{background:#d97706}.btn.gray{background:#64748b}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #e2e8f0;text-align:left}
-.badge{font-size:11px;padding:3px 8px;border-radius:20px;background:#e2e8f0}.badge.red{background:#fee2e2;color:#991b1b}.badge.amber{background:#fef3c7;color:#92400e}.badge.green{background:#dcfce7;color:#166534}
+input,select{padding:10px;border:1px solid #CBD5E1;border-radius:8px;width:100%;margin:4px 0;background:#fff}
+.btn{padding:10px 14px;border:none;border-radius:8px;cursor:pointer;font-weight:700;color:#fff;background:var(--blue);width:auto}.btn.g{background:var(--green);color:#0B1B33}.btn.r{background:var(--red)}.btn.y{background:var(--amber)}.btn.gray{background:#64748B}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #E2E8F0;text-align:left}
+.badge{font-size:11px;padding:3px 8px;border-radius:20px;background:#E2E8F0}.badge.red{background:#FEE2E2;color:#991B1B}.badge.amber{background:#FEF3C7;color:#92400E}.badge.green{background:#DCFCE7;color:#166534}
 .row{display:flex;gap:8px}.row>*{flex:1}.hide{display:none}
-.login-wrap{min-height:100vh;display:grid;place-items:center;background:#0f172a;padding:16px}
+.login-wrap{min-height:100vh;display:grid;place-items:center;background:var(--navy);padding:16px}
 .login-card{width:100%;max-width:380px;background:#fff;border-radius:16px;padding:28px;text-align:center}
-.login-logo{width:64px;height:64px;background:#2563eb;border-radius:16px;display:grid;place-items:center;font-size:32px;margin:0 auto 12px;color:#fff}
+.login-card img{width:84px;height:84px;border-radius:18px;margin:0 auto 10px}
+.login-card .sub{color:var(--blue);font-weight:800;letter-spacing:1px;font-size:13px}
+.login-card .line{height:4px;border-radius:99px;background:linear-gradient(90deg,var(--blue),var(--green));margin:14px 0}
+.sync{font-size:12px;background:#334155;padding:5px 10px;border-radius:20px}.green{color:var(--green)}.red{color:var(--red)}
+.expiry-box{margin-top:16px;background:#FEF3C7;padding:10px;border-radius:10px;font-size:12px}
 @media(max-width:800px){.sidebar{display:none}.main{margin-left:0}.grid4{grid-template-columns:1fr 1fr}}
 @media print{body *{visibility:hidden}#receipt,#receipt *{visibility:visible}#receipt{position:absolute;top:0;left:0;width:100%}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN - CLEAN -->
 <div id="loginScreen" class="login-wrap">
-<div class="login-card">
-<div class="login-logo">💊</div>
-<h2 style="margin:4px 0">PharmaTech</h2>
-<div style="color:#2563eb;font-weight:800;letter-spacing:1px;font-size:13px">ACTIVE CARE • JUBA</div>
-
-<div id="firstAdminBox" class="hide" style="text-align:left;background:#fef3c7;padding:12px;border-radius:10px;margin-top:14px">
-<b>Create Admin</b>
-<input id="faName" placeholder="Full Name">
-<input id="faUser" placeholder="Username">
-<input id="faPass" type="password" placeholder="Password">
-<button class="btn g" style="width:100%" onclick="createFirstAdmin()">Create</button>
+  <div class="login-card">
+    <img src="logo.svg" alt="PharmaTech Logo">
+    <h2 style="margin:4px 0">PharmaTech</h2>
+    <div class="sub">ACTIVE CARE • JUBA</div>
+    <div class="line"></div>
+    <div id="firstAdminBox" class="hide" style="text-align:left;background:#FEF3C7;padding:12px;border-radius:10px">
+      <b>Create Admin</b>
+      <input id="faName" placeholder="Full Name">
+      <input id="faUser" placeholder="Username">
+      <input id="faPass" type="password" placeholder="Password">
+      <button class="btn g" style="width:100%" onclick="createFirstAdmin()">Create</button>
+    </div>
+    <div id="normalLogin" style="margin-top:6px">
+      <input id="uName" placeholder="Username">
+      <input id="uPass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="btn" style="width:100%" onclick="doLogin()">Login</button>
+      <p id="loginMsg" style="color:#DC2626;font-size:13px"></p>
+    </div>
+  </div>
 </div>
 
-<div id="normalLogin" style="margin-top:16px">
-<input id="uName" placeholder="Username">
-<input id="uPass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()">
-<button class="btn" style="width:100%" onclick="doLogin()">Login</button>
-<p id="loginMsg" style="color:#dc2626;font-size:13px"></p>
-</div>
-</div>
-</div>
-
-<!-- APP -->
 <div id="app" class="hide">
-<div class="top">
-<div class="logo"><div class="logo-mark">💊</div><div><b>PharmaTech Active Care</b></div></div>
-<div style="display:flex;gap:8px;align-items:center"><span id="syncBadge" style="font-size:12px;background:#334155;padding:5px 10px;border-radius:20px">🟡 Local</span><span id="curUserLabel" style="font-size:13px"></span><button class="btn r" onclick="logout()">Logout</button></div>
-</div>
-
-<div class="sidebar">
-<button id="nav-dashboard" class="active" onclick="show('dashboard')">📊 Dashboard</button>
-<button id="nav-pos" onclick="show('pos')">🧾 POS</button>
-<button id="nav-inv" onclick="show('inv')">📦 Inventory</button>
-<button id="nav-purchase" onclick="show('purchase')">🚚 Purchases</button>
-<button id="nav-credit" onclick="show('credit')">💳 Credit</button>
-<button id="nav-shift" onclick="show('shift')">🕒 Shift</button>
-<button id="nav-reports" onclick="show('reports')">📈 Reports</button>
-<button id="nav-users" onclick="show('users')">👥 Users</button>
-<button id="nav-audit" onclick="show('audit')">🛡️ Audit Log</button>
-<button id="nav-settings" onclick="show('settings')">⚙️ Settings</button>
-<div style="margin-top:16px;background:#fef3c7;padding:10px;border-radius:10px;font-size:12px"><b>Expiry</b><div id="expiryMini"></div></div>
-</div>
-
-<div class="main">
-<div id="page-dashboard">
-<div class="grid4">
-<div class="card"><small>Today Sales</small><b id="dSales">0 SSP</b><small id="dSalesCount"></small></div>
-<div class="card"><small>Today Profit</small><b style="color:#15803d" id="dProfit">0 SSP</b></div>
-<div class="card"><small>Inventory Value</small><b id="dInvVal">0 SSP</b><small id="dItemCount"></small></div>
-<div class="card"><small>Expiring ≤ 90 Days</small><b style="color:#dc2626" id="dExp">0</b></div>
-</div>
-<div class="card"><h3>Alerts</h3><div id="alertsBox"></div></div>
-<div class="card"><h3>Top 10 Items</h3><div id="topItems"></div></div>
-<div class="card"><h3>Recent Sales</h3><div id="recentSales"></div></div>
-</div>
-
-<div id="page-pos" class="hide">
-<div class="row"><div class="card" style="flex:2"><h3>Search</h3><input id="search" placeholder="Name or barcode..." oninput="renderPOS()"><div id="posList"></div></div>
-<div class="card"><h3>Invoice <span id="shiftBadge" class="badge"></span></h3><input id="custName" placeholder="Customer"><label style="font-size:12px"><input type="checkbox" id="isCredit" style="width:auto"> Credit</label><div id="cart"></div><div class="row"><input id="disc" type="number" value="0" placeholder="Discount" oninput="renderCart()"><select id="payMethod"><option>Cash</option><option>Mobile Money</option><option>Card</option><option>Credit</option></select></div><h2>Total: <span id="total">0</span> SSP</h2><div style="font-size:12px">Profit: <b id="cartProfit">0</b> SSP</div><button class="btn g" style="width:100%" onclick="checkout()">Complete Sale</button><button class="btn y" style="width:100%;margin-top:6px" onclick="clearCart()">Clear</button><div id="receipt"></div></div></div>
-</div>
-
-<div id="page-inv" class="hide">
-<div class="card"><h3>Add Product</h3><div class="row"><input id="nName" placeholder="Product Name *"><input id="nGeneric" placeholder="Generic"></div><div class="row"><input id="nBar" placeholder="Barcode"><input id="nCat" placeholder="Category"></div><div class="row"><input id="nCost" type="number" placeholder="Cost *"><input id="nPrice" type="number" placeholder="Price *"></div><div class="row"><input id="nBatch" placeholder="Batch No"><input id="nQty" type="number" placeholder="Qty *"><input id="nExp" type="date"></div><input id="nSupplier" placeholder="Supplier"><button class="btn g" onclick="addProduct()">Add Product</button></div>
-<div class="card"><h3>Inventory</h3><div class="row"><input id="invSearch" placeholder="Search..." oninput="renderInv()"><select id="invFilter" onchange="renderInv()"><option value="all">All</option><option value="low">Low Stock</option><option value="exp90">Expiring ≤ 90d</option><option value="exp30">Expiring ≤ 30d</option><option value="expired">Expired</option></select></div><div id="invTable"></div></div>
-</div>
-
-<div id="page-purchase" class="hide">
-<div class="card"><h3>New Purchase</h3><select id="pProduct"></select><div class="row"><input id="pBatch" placeholder="Batch No"><input id="pQty" type="number" placeholder="Qty"><input id="pCost" type="number" placeholder="Cost"></div><div class="row"><input id="pExp" type="date"><input id="pSupplier" placeholder="Supplier"></div><button class="btn g" onclick="addPurchase()">Receive</button></div>
-<div class="card"><h3>Suppliers</h3><div class="row"><input id="sName" placeholder="Supplier Name"><input id="sPhone" placeholder="Phone"></div><button class="btn" onclick="addSupplier()">Add Supplier</button><div id="supList"></div></div>
-<div class="card"><h3>Purchase History</h3><div id="purHistory"></div></div>
-</div>
-
-<div id="page-credit" class="hide">
-<div class="card"><h3>Debts</h3><div id="creditList"></div></div>
-<div class="card"><h3>Collect</h3><div class="row"><input id="cName" placeholder="Customer"><input id="cAmt" type="number" placeholder="Amount"></div><button class="btn g" onclick="collectDebt()">Collect</button></div>
-</div>
-
-<div id="page-shift" class="hide">
-<div class="card"><h3>Shift</h3><p>Opening Cash: <input id="openCash" type="number" placeholder="50000"></p><button class="btn g" onclick="openShift()">Open Shift</button><button class="btn r" onclick="closeShift()">Close Shift</button><div id="shiftInfo"></div><div id="shiftHistory"></div></div>
-</div>
-
-<div id="page-reports" class="hide">
-<div class="card"><h3>Reports</h3><div class="row"><button class="btn" onclick="reportSales()">Sales</button><button class="btn" onclick="reportProfit()">Profit</button><button class="btn" onclick="reportExpiry()">Expiry</button><button class="btn" onclick="reportDead()">Dead Stock</button></div><div id="reportOut"></div></div>
-</div>
-
-<div id="page-users" class="hide">
-<div class="card"><h3>Add User</h3><div class="row"><input id="nuName" placeholder="Full Name"><input id="nuUser" placeholder="Username"></div><div class="row"><input id="nuPass" type="password" placeholder="Password"><select id="nuRole"><option>Pharmacist</option><option>Cashier</option><option>Admin</option></select></div><button class="btn g" onclick="addUser()">Create User</button></div>
-<div class="card"><h3>All Users</h3><div id="userList"></div></div>
-</div>
-
-<div id="page-audit" class="hide"><div class="card"><h3>Audit Log</h3><div id="auditList"></div></div></div>
-<div id="page-settings" class="hide"><div class="card"><h3>Settings</h3><p>Pharmacy: <input id="setName" value="PharmaTech Active Care"></p><button class="btn" onclick="exportBackup()">Export Backup</button><button class="btn y" onclick="exportExcel()">Export CSV</button><button class="btn r" onclick="if(confirm('Clear all?')){localStorage.clear();location.reload()}">Clear All</button><p id="fbStatus"></p></div></div>
-</div>
+  <div class="top">
+    <div class="logo"><img src="logo.svg"><div><b>PharmaTech Active Care</b></div></div>
+    <div style="display:flex;gap:8px;align-items:center"><span id="syncBadge" class="sync">🟡 Local</span><span id="curUserLabel"></span><button class="btn r" onclick="logout()">Logout</button></div>
+  </div>
+  <div class="sidebar">
+    <button id="nav-dashboard" class="active" onclick="show('dashboard')">📊 Dashboard</button>
+    <button id="nav-pos" onclick="show('pos')">🧾 POS</button>
+    <button id="nav-inv" onclick="show('inv')">📦 Inventory</button>
+    <button id="nav-purchase" onclick="show('purchase')">🚚 Purchases</button>
+    <button id="nav-credit" onclick="show('credit')">💳 Credit</button>
+    <button id="nav-shift" onclick="show('shift')">🕒 Shift</button>
+    <button id="nav-reports" onclick="show('reports')">📈 Reports</button>
+    <button id="nav-users" onclick="show('users')">👥 Users</button>
+    <button id="nav-audit" onclick="show('audit')">🛡️ Audit Log</button>
+    <button id="nav-settings" onclick="show('settings')">⚙️ Settings</button>
+    <div class="expiry-box"><b>Expiry</b><div id="expiryMini"></div></div>
+  </div>
+  <div class="main">
+    <div id="page-dashboard">
+      <div class="grid4">
+        <div class="card"><small>Today Sales</small><b id="dSales">0 SSP</b><small id="dSalesCount"></small></div>
+        <div class="card"><small>Today Profit</small><b class="green" id="dProfit">0 SSP</b></div>
+        <div class="card"><small>Inventory Value</small><b id="dInvVal">0 SSP</b><small id="dItemCount"></small></div>
+        <div class="card"><small>Expiring ≤ 90 Days</small><b class="red" id="dExp">0</b></div>
+      </div>
+      <div class="card"><h3>Alerts</h3><div id="alertsBox"></div></div>
+      <div class="card"><h3>Top 10 Items</h3><div id="topItems"></div></div>
+      <div class="card"><h3>Recent Sales</h3><div id="recentSales"></div></div>
+    </div>
+    <div id="page-pos" class="hide">
+      <div class="row"><div class="card" style="flex:2"><h3>Search</h3><input id="search" placeholder="Name or barcode..." oninput="renderPOS()"><div id="posList"></div></div>
+      <div class="card"><h3>Invoice <span id="shiftBadge" class="badge"></span></h3><input id="custName" placeholder="Customer"><label style="font-size:12px"><input type="checkbox" id="isCredit" style="width:auto"> Credit</label><div id="cart"></div><div class="row"><input id="disc" type="number" value="0" placeholder="Discount" oninput="renderCart()"><select id="payMethod"><option>Cash</option><option>Mobile Money</option><option>Card</option><option>Credit</option></select></div><h2>Total: <span id="total">0</span> SSP</h2><div>Profit: <b id="cartProfit">0</b> SSP</div><button class="btn g" style="width:100%" onclick="checkout()">Complete Sale</button><button class="btn y" style="width:100%;margin-top:6px" onclick="clearCart()">Clear</button><div id="receipt"></div></div></div>
+    </div>
+    <div id="page-inv" class="hide">
+      <div class="card"><h3>Add Product</h3><div class="row"><input id="nName" placeholder="Product Name *"><input id="nGeneric" placeholder="Generic"></div><div class="row"><input id="nBar" placeholder="Barcode"><input id="nCat" placeholder="Category"></div><div class="row"><input id="nCost" type="number" placeholder="Cost *"><input id="nPrice" type="number" placeholder="Price *"></div><div class="row"><input id="nBatch" placeholder="Batch No"><input id="nQty" type="number" placeholder="Qty *"><input id="nExp" type="date"></div><input id="nSupplier" placeholder="Supplier"><button class="btn g" onclick="addProduct()">Add Product</button></div>
+      <div class="card"><h3>Inventory</h3><div class="row"><input id="invSearch" placeholder="Search..." oninput="renderInv()"><select id="invFilter" onchange="renderInv()"><option value="all">All</option><option value="low">Low Stock</option><option value="exp90">Expiring ≤ 90d</option><option value="exp30">Expiring ≤ 30d</option><option value="expired">Expired</option></select></div><div id="invTable"></div></div>
+    </div>
+    <div id="page-purchase" class="hide">
+      <div class="card"><h3>New Purchase</h3><select id="pProduct"></select><div class="row"><input id="pBatch" placeholder="Batch No"><input id="pQty" type="number" placeholder="Qty"><input id="pCost" type="number" placeholder="Cost"></div><div class="row"><input id="pExp" type="date"><input id="pSupplier" placeholder="Supplier"></div><button class="btn g" onclick="addPurchase()">Receive</button></div>
+      <div class="card"><h3>Suppliers</h3><div class="row"><input id="sName" placeholder="Supplier Name"><input id="sPhone" placeholder="Phone"></div><button class="btn" onclick="addSupplier()">Add Supplier</button><div id="supList"></div></div>
+      <div class="card"><h3>Purchase History</h3><div id="purHistory"></div></div>
+    </div>
+    <div id="page-credit" class="hide"><div class="card"><h3>Debts</h3><div id="creditList"></div></div><div class="card"><h3>Collect</h3><div class="row"><input id="cName" placeholder="Customer"><input id="cAmt" type="number" placeholder="Amount"></div><button class="btn g" onclick="collectDebt()">Collect</button></div></div>
+    <div id="page-shift" class="hide"><div class="card"><h3>Shift</h3><p>Opening Cash: <input id="openCash" type="number" placeholder="50000"></p><button class="btn g" onclick="openShift()">Open Shift</button><button class="btn r" onclick="closeShift()">Close Shift</button><div id="shiftInfo"></div><div id="shiftHistory"></div></div></div>
+    <div id="page-reports" class="hide"><div class="card"><h3>Reports</h3><div class="row"><button class="btn" onclick="reportSales()">Sales</button><button class="btn" onclick="reportProfit()">Profit</button><button class="btn" onclick="reportExpiry()">Expiry</button><button class="btn" onclick="reportDead()">Dead Stock</button></div><div id="reportOut"></div></div></div>
+    <div id="page-users" class="hide"><div class="card"><h3>Add User</h3><div class="row"><input id="nuName" placeholder="Full Name"><input id="nuUser" placeholder="Username"></div><div class="row"><input id="nuPass" type="password" placeholder="Password"><select id="nuRole"><option>Pharmacist</option><option>Cashier</option><option>Admin</option></select></div><button class="btn g" onclick="addUser()">Create User</button></div><div class="card"><h3>All Users</h3><div id="userList"></div></div></div>
+    <div id="page-audit" class="hide"><div class="card"><h3>Audit Log</h3><div id="auditList"></div></div></div>
+    <div id="page-settings" class="hide"><div class="card"><h3>Settings</h3><p>Pharmacy: <input id="setName" value="PharmaTech Active Care"></p><button class="btn" onclick="exportBackup()">Export Backup</button><button class="btn y" onclick="exportExcel()">Export CSV</button><button class="btn r" onclick="if(confirm('Clear all?')){localStorage.clear();location.reload()}">Clear All</button><p id="fbStatus"></p></div></div>
+  </div>
 </div>
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import { getFirestore, collection, setDoc, doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+import { getFirestore, collection, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 const FB_CONFIG = { apiKey: "AIzaSyAJeu6fPQuTd7kIBngbH7LxZnCKRQGXCk0", authDomain: "juba-stadium-247f3.firebaseapp.com", projectId: "juba-stadium-247f3", storageBucket: "juba-stadium-247f3.firebasestorage.app", messagingSenderId: "314725857339", appId: "1:314725857339:web:552d953c9e6a3f0097841e" };
 let db=null, cloud=false;
 try{ const app=initializeApp(FB_CONFIG); db=getFirestore(app); cloud=true; document.getElementById('syncBadge').innerText='🟢 Synced'; document.getElementById('fbStatus').innerText='Connected: '+FB_CONFIG.projectId; }catch(e){}
+// PWA
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
 let S = JSON.parse(localStorage.getItem('pt_v2')||'{}');
 if(!S.products) S={products:[], sales:[], purchases:[], suppliers:[], debts:[], users:[], audit:[], shifts:[], currentShift:null};
 let cur=null, cart=[];
@@ -139,7 +130,7 @@ function audit(action, detail){ S.audit.unshift({t:new Date().toISOString(), use
 function daysToExp(d){ if(!d) return 9999; return Math.ceil((new Date(d)-new Date())/86400000); }
 function can(perm){ if(!cur) return false; if(cur.role==='Admin') return true; if(perm==='pos') return true; if(cur.role==='Pharmacist') return ['pos','inv','purchase'].includes(perm); return false; }
 if(S.users.length===0){ document.getElementById('firstAdminBox').classList.remove('hide'); document.getElementById('normalLogin').classList.add('hide'); }
-window.createFirstAdmin=async function(){ const name=document.getElementById('faName').value.trim(), u=document.getElementById('faUser').value.trim(), p=document.getElementById('faPass').value; if(!name||!u||p.length<8||!/\d/.test(p)){ alert('Name + Username + Password min 8 with number'); return; } const h=await hashPass(p); S.users.push({name, username:u, hash:h, role:'Admin', active:true, created:new Date().toISOString()}); save(); alert('Admin created'); location.reload(); }
+window.createFirstAdmin=async function(){ const name=document.getElementById('faName').value.trim(), u=document.getElementById('faUser').value.trim(), p=document.getElementById('faPass').value; if(!name||!u||p.length<8||!/\d/.test(p)){ alert('Name + Username + Password min 8 with number'); return; } const h=await hashPass(p); S.users.push({name, username:u, hash:h, role:'Admin', active:true}); save(); alert('Admin created'); location.reload(); }
 window.doLogin=async function(){ const u=document.getElementById('uName').value.trim(), p=document.getElementById('uPass').value; const h=await hashPass(p); const f=S.users.find(x=>x.username===u && x.hash===h && x.active); if(!f){ document.getElementById('loginMsg').innerText='Invalid credentials'; return; } cur=f; document.getElementById('loginScreen').classList.add('hide'); document.getElementById('app').classList.remove('hide'); document.getElementById('curUserLabel').innerText=f.name+' ('+f.role+')'; if(f.role==='Cashier'){ ['inv','purchase','credit','shift','reports','users','audit','settings'].forEach(id=>{ document.getElementById('nav-'+id)?.classList.add('hide'); }); } if(f.role==='Pharmacist'){ ['users','audit','settings'].forEach(id=>{ document.getElementById('nav-'+id)?.classList.add('hide'); }); } audit('LOGIN','User logged in'); renderAll(); }
 window.logout=function(){ location.reload(); }
 window.show=function(p){ document.querySelectorAll('[id^="page-"]').forEach(e=>e.classList.add('hide')); document.getElementById('page-'+p).classList.remove('hide'); document.querySelectorAll('.sidebar button').forEach(b=>b.classList.remove('active')); document.getElementById('nav-'+p)?.classList.add('active'); }
@@ -151,7 +142,7 @@ window.addToCart=function(id){ const p=S.products.find(x=>x.id===id); if(!p) ret
 window.renderCart=function(){ const disc=+document.getElementById('disc').value||0; let tot=0, prof=0; document.getElementById('cart').innerHTML=cart.map(c=>{ tot+=c.price*c.qty; prof+=(c.price-c.cost)*c.qty; return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee"><span>${c.name} x ${c.qty}</span><span>${c.price*c.qty} <button class="btn r" style="padding:2px 7px" onclick="remCart('${c.id}')">x</button></span></div>`}).join('')||'Empty'; document.getElementById('total').innerText=Math.max(0,tot-disc); document.getElementById('cartProfit').innerText=Math.max(0,prof-disc); }
 window.remCart=function(id){ cart=cart.filter(c=>c.id!==id); renderCart(); }
 window.clearCart=function(){ cart=[]; renderCart(); }
-window.checkout=function(){ if(!cart.length) return alert('Cart empty'); if(!S.currentShift) return alert('Open Shift first'); const disc=+document.getElementById('disc').value||0; let tot=cart.reduce((s,c)=>s+c.price*c.qty,0)-disc; let profit=cart.reduce((s,c)=>s+(c.price-c.cost)*c.qty,0)-disc; for(let c of cart){ let need=c.qty; const p=S.products.find(x=>x.id===c.id); for(let b of sellableBatches(p)){ if(need<=0) break; const take=Math.min(need,b.qty); b.qty-=take; need-=take; } } const sale={id:Date.now(), total:tot, profit, items:cart, disc, pay:document.getElementById('payMethod').value, user:cur.username, customer:document.getElementById('custName').value||'Walk-in', isCredit:document.getElementById('isCredit').checked, date:new Date().toISOString()}; S.sales.push(sale); if(sale.isCredit){ let d=S.debts.find(x=>x.customer===sale.customer); if(d) d.amount+=tot; else S.debts.push({customer:sale.customer, amount:tot, date:sale.date}); } audit('SALE','Invoice #'+sale.id+' Total '+tot); save(); cart=[]; document.getElementById('disc').value=0; renderAll(); document.getElementById('receipt').innerHTML=`<div id="receipt" style="border:1px dashed #000;padding:10px;margin-top:10px"><center><b>PharmaTech Active Care - Juba</b><br>Invoice #${sale.id}<br>${new Date().toLocaleString()} | ${cur.name}</center><hr>${sale.items.map(i=>i.name+' x '+i.qty+' = '+i.price*i.qty).join('<br>')}<hr><b>Total: ${tot} SSP</b></div>`; alert('Sale completed - '+tot); window.print(); }
+window.checkout=function(){ if(!cart.length) return alert('Cart empty'); if(!S.currentShift) return alert('Open Shift first'); const disc=+document.getElementById('disc').value||0; let tot=cart.reduce((s,c)=>s+c.price*c.qty,0)-disc; let profit=cart.reduce((s,c)=>s+(c.price-c.cost)*c.qty,0)-disc; for(let c of cart){ let need=c.qty; const p=S.products.find(x=>x.id===c.id); for(let b of sellableBatches(p)){ if(need<=0) break; const take=Math.min(need,b.qty); b.qty-=take; need-=take; } } const sale={id:Date.now(), total:tot, profit, items:cart, disc, pay:document.getElementById('payMethod').value, user:cur.username, customer:document.getElementById('custName').value||'Walk-in', isCredit:document.getElementById('isCredit').checked, date:new Date().toISOString()}; S.sales.push(sale); if(sale.isCredit){ let d=S.debts.find(x=>x.customer===sale.customer); if(d) d.amount+=tot; else S.debts.push({customer:sale.customer, amount:tot, date:sale.date}); } audit('SALE','Invoice #'+sale.id+' Total '+tot); save(); cart=[]; document.getElementById('disc').value=0; renderAll(); document.getElementById('receipt').innerHTML=`<div id="receipt" style="border:1px dashed #000;padding:10px;margin-top:10px"><center><img src="logo.svg" style="width:48px"><br><b>PharmaTech Active Care - Juba</b><br>Invoice #${sale.id}<br>${new Date().toLocaleString()} | ${cur.name}</center><hr>${sale.items.map(i=>i.name+' x '+i.qty+' = '+i.price*i.qty).join('<br>')}<hr><b>Total: ${tot} SSP</b></div>`; alert('Sale completed - '+tot); window.print(); }
 window.renderInv=function(){ const q=(document.getElementById('invSearch').value||'').toLowerCase(), f=document.getElementById('invFilter').value; let list=S.products.filter(p=>p.name.toLowerCase().includes(q)); if(f==='low') list=list.filter(p=>totalQty(p)<=10); if(f==='exp90') list=list.filter(p=>p.batches.some(b=>daysToExp(b.exp)<=90&&daysToExp(b.exp)>0)); if(f==='exp30') list=list.filter(p=>p.batches.some(b=>daysToExp(b.exp)<=30&&daysToExp(b.exp)>0)); if(f==='expired') list=list.filter(p=>p.batches.some(b=>daysToExp(b.exp)<=0)); document.getElementById('invTable').innerHTML=`<table><tr><th>Product</th><th>Batches</th><th>Stock</th><th>Price / Cost</th><th>Status</th></tr>${list.map(p=>`<tr><td><b>${p.name}</b><br><small>${p.barcode||''}</small></td><td>${p.batches.map(b=>b.batch+' : '+b.qty+' | '+ (b.exp||'-') +' ('+daysToExp(b.exp)+'d)').join('<br>')}</td><td>${totalQty(p)}</td><td>${p.price} / ${p.cost}</td><td>${p.batches.some(b=>daysToExp(b.exp)<=0)?'<span class="badge red">Expired</span>':p.batches.some(b=>daysToExp(b.exp)<=30)?'<span class="badge amber">Near Expiry</span>':'<span class="badge green">OK</span>'}</td></tr>`).join('')}</table>`; const sel=document.getElementById('pProduct'); if(sel) sel.innerHTML=S.products.map(p=>`<option value="${p.id}">${p.name} - ${totalQty(p)}</option>`).join(''); }
 window.addPurchase=function(){ if(!can('purchase')) return alert('No permission'); const pid=document.getElementById('pProduct').value; const p=S.products.find(x=>x.id===pid); if(!p) return; const qty=+document.getElementById('pQty').value||0, cost=+document.getElementById('pCost').value||p.cost; if(!qty) return alert('Qty required'); p.batches.push({batch:document.getElementById('pBatch').value||'B-'+Date.now(), qty, exp:document.getElementById('pExp').value, supplier:document.getElementById('pSupplier').value, cost}); p.cost=cost; S.purchases.push({date:new Date().toISOString(), product:p.name, qty, cost, supplier:document.getElementById('pSupplier').value, user:cur.username}); audit('PURCHASE', p.name+' +'+qty); save(); renderAll(); alert('Received'); }
 window.addSupplier=function(){ const n=document.getElementById('sName').value.trim(); if(!n) return; S.suppliers.push({name:n, phone:document.getElementById('sPhone').value}); save(); renderAll(); }
@@ -172,4 +163,4 @@ function renderAll(){ const today=new Date().toISOString().slice(0,10); const ts
 renderAll();
 </script>
 </body>
-                                                                           </html>
+        </html>
