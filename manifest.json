@@ -1,0 +1,18 @@
+{
+  "name": "PharmaTech Active Care",
+  "short_name": "PharmaTech",
+  "description": "Pharmacy Management System - Juba",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0B1B33",
+  "theme_color": "#0E63FF",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
